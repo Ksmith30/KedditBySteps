@@ -1,13 +1,16 @@
 package com.example.kylesmith.kedditbysteps
 
-import android.app.Fragment
 import android.app.FragmentManager
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toolbar
+import android.support.annotation.RequiresApi
+import android.support.v4.app.Fragment
+import android.support.v7.widget.Toolbar
 
 class MainActivity : AppCompatActivity() {
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun changeFragment(fr: Fragment, cleanStack: Boolean = false) {
+    private fun changeFragment(f: Fragment, cleanStack: Boolean = false) {
         val fragmentManager = supportFragmentManager.beginTransaction()
         if (cleanStack) {
             clearBackStack()
