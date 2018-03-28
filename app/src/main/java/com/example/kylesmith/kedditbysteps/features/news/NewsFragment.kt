@@ -9,12 +9,15 @@ import android.support.v7.widget.*
 import android.view.View
 import android.view.ViewGroup
 import com.example.kylesmith.kedditbysteps.R
+import com.example.kylesmith.kedditbysteps.commons.adapter.NewsAdapter
+import com.example.kylesmith.kedditbysteps.commons.adapter.ViewType
 import com.example.kylesmith.kedditbysteps.commons.inflate
 import kotlinx.android.synthetic.main.news_fragment.*
 
 
 @RequiresApi(Build.VERSION_CODES.M)
 class NewsFragment : Fragment() {
+
     private val newsList: RecyclerView by lazy {
         news_list
     }
@@ -27,6 +30,14 @@ class NewsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
          newsList.setHasFixedSize(true)
          newsList.layoutManager = LinearLayoutManager(context)
+
+         initAdapter()
+    }
+
+    private fun initAdapter() {
+        if (newsList.adapter == null) {
+            newsList.adapter = NewsAdapter()
+        }
     }
 
 }

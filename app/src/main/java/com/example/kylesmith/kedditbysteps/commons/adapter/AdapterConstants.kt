@@ -1,7 +1,7 @@
 package com.example.kylesmith.kedditbysteps.commons.adapter
 
-/**
- * Created by kylesmith on 3/28/18.
- */
+
 object AdapterConstants {
+    val NEWS = 1
+    val LOADING = 2
 }

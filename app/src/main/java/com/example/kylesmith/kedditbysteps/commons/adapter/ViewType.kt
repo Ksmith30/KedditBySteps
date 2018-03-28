@@ -1,7 +1,5 @@
 package com.example.kylesmith.kedditbysteps.commons.adapter
 
-/**
- * Created by kylesmith on 3/28/18.
- */
 interface ViewType {
+    fun getViewType(): Int
 }

@@ -1,7 +1,10 @@
 package com.example.kylesmith.kedditbysteps.commons.adapter
 
-/**
- * Created by kylesmith on 3/28/18.
- */
+import android.support.v7.widget.RecyclerView
+import android.view.ViewGroup
+
 interface ViewTypeDelegateAdapter {
+    fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
+
+    fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: ViewType)
 }
