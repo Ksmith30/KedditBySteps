@@ -16,6 +16,7 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     init {
         this.delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
+        this.delegateAdapters.put(AdapterConstants.NEWS, NewsDelegateAdapter())
         this.items = ArrayList()
         this.items.add(loadingItem)
     }

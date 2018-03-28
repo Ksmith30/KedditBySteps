@@ -10,8 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.kylesmith.kedditbysteps.R
 import com.example.kylesmith.kedditbysteps.commons.adapter.NewsAdapter
-import com.example.kylesmith.kedditbysteps.commons.adapter.ViewType
-import com.example.kylesmith.kedditbysteps.commons.inflate
+import com.example.kylesmith.kedditbysteps.commons.extensions.inflate
 import kotlinx.android.synthetic.main.news_fragment.*
 
 
