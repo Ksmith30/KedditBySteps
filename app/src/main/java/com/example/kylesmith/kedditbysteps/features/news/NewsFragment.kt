@@ -1,4 +1,4 @@
-package com.example.kylesmith.kedditbysteps
+package com.example.kylesmith.kedditbysteps.features.news
 
 import android.os.Build
 import android.os.Bundle
@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.support.v7.widget.*
 import android.view.View
 import android.view.ViewGroup
+import com.example.kylesmith.kedditbysteps.R
+import com.example.kylesmith.kedditbysteps.commons.inflate
 import kotlinx.android.synthetic.main.news_fragment.*
 
 

@@ -1,4 +1,4 @@
-package com.example.kylesmith.kedditbysteps
+package com.example.kylesmith.kedditbysteps.commons
 
 import android.view.LayoutInflater
 import android.view.View
