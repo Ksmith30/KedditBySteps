@@ -1,8 +1,11 @@
-package com.example.kylesmith.kedditbysteps.commons.adapter
+package com.example.kylesmith.kedditbysteps.features.news.adapter
 
 import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import com.example.kylesmith.kedditbysteps.commons.adapter.AdapterConstants
+import com.example.kylesmith.kedditbysteps.commons.adapter.ViewType
+import com.example.kylesmith.kedditbysteps.commons.adapter.ViewTypeDelegateAdapter
 
 class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

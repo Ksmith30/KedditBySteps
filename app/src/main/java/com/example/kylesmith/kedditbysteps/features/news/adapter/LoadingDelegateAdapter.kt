@@ -1,8 +1,10 @@
-package com.example.kylesmith.kedditbysteps.commons.adapter
+package com.example.kylesmith.kedditbysteps.features.news.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.example.kylesmith.kedditbysteps.R
+import com.example.kylesmith.kedditbysteps.commons.adapter.ViewType
+import com.example.kylesmith.kedditbysteps.commons.adapter.ViewTypeDelegateAdapter
 import com.example.kylesmith.kedditbysteps.commons.extensions.inflate
 
 class LoadingDelegateAdapter : ViewTypeDelegateAdapter {
