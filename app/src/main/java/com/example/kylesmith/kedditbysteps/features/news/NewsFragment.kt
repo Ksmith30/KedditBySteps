@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.news_fragment.*
 @RequiresApi(Build.VERSION_CODES.M)
 class NewsFragment : Fragment() {
 
+    private val newsManager by lazy { NewsManager() }
+
     private val newsList: RecyclerView by lazy {
         news_list
     }
@@ -45,6 +47,7 @@ class NewsFragment : Fragment() {
                  )
              }
              (newsList.adapter as NewsAdapter).addNews(news)
+             requestNews()
          }
     }
 
@@ -52,6 +55,10 @@ class NewsFragment : Fragment() {
         if (newsList.adapter == null) {
             newsList.adapter = NewsAdapter()
         }
+    }
+
+    private fun requestNews() {
+
     }
 
 }
