@@ -3,6 +3,7 @@ package com.example.kylesmith.kedditbysteps.features.news.adapter
 import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import com.example.kylesmith.kedditbysteps.commons.RedditNewsItem
 import com.example.kylesmith.kedditbysteps.commons.adapter.AdapterConstants
 import com.example.kylesmith.kedditbysteps.commons.adapter.ViewType
 import com.example.kylesmith.kedditbysteps.commons.adapter.ViewTypeDelegateAdapter
@@ -40,5 +41,29 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return this.items.get(position).getViewType()
     }
 
+    fun addNews(news: List<RedditNewsItem>) {
+        val initPosition = items.lastIndex
+        items.removeAt(initPosition)
+        notifyItemRemoved(initPosition)
+        items.addAll(news)
+        items.add(loadingItem)
+        notifyItemRangeChanged(initPosition, items.size + 1)
+    }
 
+    fun clearAndAddNews(news: List<RedditNewsItem>) {
+        items.clear()
+        notifyItemRangeRemoved(0, getLastPosition())
+
+        items.addAll(news)
+        items.add(loadingItem)
+        notifyItemRangeInserted(0, items.size)
+    }
+
+    fun getNews(): List<RedditNewsItem> {
+        return items
+                .filter { it.getViewType() == AdapterConstants.NEWS}
+                .map { it as RedditNewsItem }
+    }
+
+    private fun getLastPosition() = if (items.lastIndex == -1) 0 else items.lastIndex
 }

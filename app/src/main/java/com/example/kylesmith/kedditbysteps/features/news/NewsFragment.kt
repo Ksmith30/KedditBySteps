@@ -9,6 +9,7 @@ import android.support.v7.widget.*
 import android.view.View
 import android.view.ViewGroup
 import com.example.kylesmith.kedditbysteps.R
+import com.example.kylesmith.kedditbysteps.commons.RedditNewsItem
 import com.example.kylesmith.kedditbysteps.features.news.adapter.NewsAdapter
 import com.example.kylesmith.kedditbysteps.commons.extensions.inflate
 import kotlinx.android.synthetic.main.news_fragment.*
@@ -31,6 +32,20 @@ class NewsFragment : Fragment() {
          newsList.layoutManager = LinearLayoutManager(context)
 
          initAdapter()
+
+         if (savedInstanceState == null) {
+             val news = (1..10).map {
+                 RedditNewsItem(
+                         "author$it",
+                         "Title$it",
+                         it,
+                         1457207701L - it * 200,
+                         "http://lorempixel.com/200/200/technics/$it",
+                         "url"
+                 )
+             }
+             (newsList.adapter as NewsAdapter).addNews(news)
+         }
     }
 
     private fun initAdapter() {
