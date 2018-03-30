@@ -22,11 +22,6 @@ import rx.schedulers.Schedulers
 class NewsFragment : RxBaseFragment() {
 
     private val newsManager by lazy { NewsManager() }
-    private var redditNews: RedditNews? = null
-
-    class RedditNews {
-
-    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return container?.inflate(R.layout.news_fragment)
@@ -36,21 +31,9 @@ class NewsFragment : RxBaseFragment() {
         super.onActivityCreated(savedInstanceState)
          news_list.setHasFixedSize(true)
          news_list.layoutManager = LinearLayoutManager(context)
-
          initAdapter()
 
          if (savedInstanceState == null) {
-             val news = (1..10).map {
-                 RedditNewsItem(
-                         "author$it",
-                         "Title$it",
-                         it,
-                         1457207701L - it * 200,
-                         "http://lorempixel.com/200/200/technics/$it",
-                         "url"
-                 )
-             }
-             (news_list.adapter as NewsAdapter).addNews(news)
              requestNews()
          }
     }
