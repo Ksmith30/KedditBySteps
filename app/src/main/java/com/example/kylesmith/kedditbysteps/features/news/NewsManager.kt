@@ -23,6 +23,9 @@ class NewsManager {
                 ))
             }
             subscriber.onNext(news)
+            subscriber.onCompleted()
         }
     }
+
+
 }

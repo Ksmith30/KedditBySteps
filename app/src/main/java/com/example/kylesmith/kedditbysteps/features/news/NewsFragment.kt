@@ -3,25 +3,29 @@ package com.example.kylesmith.kedditbysteps.features.news
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
-import android.support.v4.app.Fragment
+import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.support.v7.widget.*
 import android.view.View
 import android.view.ViewGroup
 import com.example.kylesmith.kedditbysteps.R
 import com.example.kylesmith.kedditbysteps.commons.RedditNewsItem
+import com.example.kylesmith.kedditbysteps.commons.RxBaseFragment
 import com.example.kylesmith.kedditbysteps.features.news.adapter.NewsAdapter
 import com.example.kylesmith.kedditbysteps.commons.extensions.inflate
 import kotlinx.android.synthetic.main.news_fragment.*
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 
 @RequiresApi(Build.VERSION_CODES.M)
-class NewsFragment : Fragment() {
+class NewsFragment : RxBaseFragment() {
 
     private val newsManager by lazy { NewsManager() }
+    private var redditNews: RedditNews? = null
 
-    private val newsList: RecyclerView by lazy {
-        news_list
+    class RedditNews {
+
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -30,8 +34,8 @@ class NewsFragment : Fragment() {
 
      override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-         newsList.setHasFixedSize(true)
-         newsList.layoutManager = LinearLayoutManager(context)
+         news_list.setHasFixedSize(true)
+         news_list.layoutManager = LinearLayoutManager(context)
 
          initAdapter()
 
@@ -46,19 +50,31 @@ class NewsFragment : Fragment() {
                          "url"
                  )
              }
-             (newsList.adapter as NewsAdapter).addNews(news)
+             (news_list.adapter as NewsAdapter).addNews(news)
              requestNews()
          }
     }
 
     private fun initAdapter() {
-        if (newsList.adapter == null) {
-            newsList.adapter = NewsAdapter()
+        if (news_list.adapter == null) {
+            news_list.adapter = NewsAdapter()
         }
     }
 
     private fun requestNews() {
-
+        val subscription = newsManager.getNews()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { retrievedNews ->
+                            (news_list.adapter as NewsAdapter).addNews(retrievedNews)
+                        },
+                        { e ->
+                            Snackbar.make(news_list, e.message ?: "", Snackbar.LENGTH_LONG).show()
+                        }
+                )
+        subscriptions.add(subscription)
     }
+
 
 }
