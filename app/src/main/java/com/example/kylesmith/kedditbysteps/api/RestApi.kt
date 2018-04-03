@@ -17,7 +17,7 @@ class RestApi() {
         redditApi = retrofit.create(RedditApi::class.java)
     }
 
-    fun getNews(after: String, limit: String): Call<RedditNewsResponse> {
+    fun getNews(after: String, limit: String = "10"): Call<RedditNewsResponse> {
         return redditApi.getTop(after, limit)
     }
 }
