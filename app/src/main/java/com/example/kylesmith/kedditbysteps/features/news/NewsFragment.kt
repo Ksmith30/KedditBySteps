@@ -8,7 +8,10 @@ import android.view.LayoutInflater
 import android.support.v7.widget.*
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.example.kylesmith.kedditbysteps.R
+import com.example.kylesmith.kedditbysteps.commons.InfiniteScrollListener
+import com.example.kylesmith.kedditbysteps.commons.RedditNews
 import com.example.kylesmith.kedditbysteps.commons.RedditNewsItem
 import com.example.kylesmith.kedditbysteps.commons.RxBaseFragment
 import com.example.kylesmith.kedditbysteps.features.news.adapter.NewsAdapter
@@ -21,16 +24,21 @@ import rx.schedulers.Schedulers
 @RequiresApi(Build.VERSION_CODES.M)
 class NewsFragment : RxBaseFragment() {
 
+    private var redditNews: RedditNews? = null
     private val newsManager by lazy { NewsManager() }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         return container?.inflate(R.layout.news_fragment)
     }
 
      override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
          news_list.setHasFixedSize(true)
-         news_list.layoutManager = LinearLayoutManager(context)
+         val linearLayout = LinearLayoutManager(context)
+         news_list.layoutManager = linearLayout
+         news_list.clearOnScrollListeners()
+         news_list.addOnScrollListener(InfiniteScrollListener({ requestNews()}, linearLayout))
          initAdapter()
 
          if (savedInstanceState == null) {
@@ -45,12 +53,12 @@ class NewsFragment : RxBaseFragment() {
     }
 
     private fun requestNews() {
-        val subscription = newsManager.getNews()
+        val subscription = newsManager.getNews(redditNews?.after ?: "")
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { retrievedNews ->
-                            (news_list.adapter as NewsAdapter).addNews(retrievedNews)
+                            redditNews = retrievedNews
+                            (news_list.adapter as NewsAdapter).addNews(retrievedNews.news)
                         },
                         { e ->
                             Snackbar.make(news_list, e.message ?: "", Snackbar.LENGTH_LONG).show()
