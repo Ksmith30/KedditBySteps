@@ -1,12 +1,13 @@
 package com.example.kylesmith.kedditbysteps.features.news
 
+import com.example.kylesmith.kedditbysteps.api.NewsApi
 import com.example.kylesmith.kedditbysteps.api.NewsRestApi
 import com.example.kylesmith.kedditbysteps.commons.RedditNews
 import com.example.kylesmith.kedditbysteps.commons.RedditNewsItem
 import rx.Observable
 
 
-class NewsManager(private val api: NewsRestApi = NewsRestApi()) {
+class NewsManager(private val api: NewsApi = NewsRestApi()) {
 
     fun getNews(after: String, limit: String = "10"): Observable<RedditNews> {
         return Observable.create {
